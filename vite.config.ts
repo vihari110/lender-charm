@@ -5,6 +5,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // Add your repository name here:
+  base: '/lender-charm/', 
+
   server: {
     host: "::",
     port: 8080,
