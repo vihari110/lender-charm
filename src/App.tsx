@@ -14,7 +14,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/lender-charm">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/new-lender-lead" element={<NewLenderLead />} />
