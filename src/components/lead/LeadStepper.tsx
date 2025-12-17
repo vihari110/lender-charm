@@ -1,4 +1,4 @@
-import { Check, Lock } from "lucide-react";
+import { Check } from "lucide-react";
 
 interface LeadStepperProps {
   completedSections: number;
@@ -16,18 +16,10 @@ export function LeadStepper({
   section3Submitted,
 }: LeadStepperProps) {
   const getStepStatus = (step: number) => {
-    if (step === 1) {
-      return section1Submitted ? "completed" : "in-progress";
-    }
-    if (step === 2) {
-      if (section2Submitted) return "completed";
-      return section1Submitted ? "in-progress" : "locked";
-    }
-    if (step === 3) {
-      if (section3Submitted) return "completed";
-      return section1Submitted && section2Submitted ? "in-progress" : "locked";
-    }
-    return "locked";
+    if (step === 1) return section1Submitted ? "completed" : "in-progress";
+    if (step === 2) return section2Submitted ? "completed" : "in-progress";
+    if (step === 3) return section3Submitted ? "completed" : "in-progress";
+    return "in-progress";
   };
 
   return (
@@ -47,33 +39,25 @@ export function LeadStepper({
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
                     status === "completed"
                       ? "bg-lead-green text-primary-foreground"
-                      : status === "in-progress"
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-lead-gray text-muted-foreground"
+                      : "bg-accent text-accent-foreground"
                   }`}
                 >
                   {status === "completed" ? (
                     <Check className="w-4 h-4" />
-                  ) : status === "locked" ? (
-                    <Lock className="w-3 h-3" />
                   ) : (
                     step
                   )}
                 </div>
-                <span
-                  className={`text-sm font-medium hidden sm:inline ${
-                    status === "locked" ? "text-muted-foreground" : "text-foreground"
-                  }`}
-                >
+                <span className="text-sm font-medium hidden sm:inline text-foreground">
                   Section {step}
                 </span>
               </div>
               {index < 2 && (
                 <div
                   className={`h-0.5 flex-1 mx-2 ${
-                    getStepStatus(step + 1) !== "locked"
+                    getStepStatus(step + 1) === "completed"
                       ? "bg-lead-green"
-                      : "bg-lead-gray"
+                      : "bg-accent"
                   }`}
                 />
               )}
