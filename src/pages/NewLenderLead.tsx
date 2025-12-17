@@ -489,7 +489,7 @@ export default function NewLenderLead() {
                 </select>
               </div>
               <div>
-                <label className="form-label">Office Address*</label>
+                <label className="form-label">Office / Residence Address*</label>
                 <input
                   type="text"
                   className="form-input"
@@ -587,7 +587,7 @@ export default function NewLenderLead() {
             {/* Right Column */}
             <div className="space-y-4">
               <div>
-                <label className="form-label">Business Email*</label>
+                <label className="form-label">Business/Personal Email*</label>
                 <input
                   type="email"
                   className="form-input"
