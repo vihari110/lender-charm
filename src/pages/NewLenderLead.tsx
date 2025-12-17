@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Plus } from "lucide-react";
 import { LeadHeader } from "@/components/lead/LeadHeader";
 import { LeadStepper } from "@/components/lead/LeadStepper";
@@ -261,6 +261,11 @@ const initialFormState: FormState = {
 
 export default function NewLenderLead() {
   const { toast } = useToast();
+  const [activeSection, setActiveSection] = useState(1);
+  const section1Ref = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
+  const section3Ref = useRef<HTMLDivElement>(null);
+
   const [formState, setFormState] = useState<FormState>(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -277,6 +282,28 @@ export default function NewLenderLead() {
     }
     return initialFormState;
   });
+
+  // Scroll tracking for active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 150; // Offset for sticky header
+      
+      const section1Top = section1Ref.current?.offsetTop || 0;
+      const section2Top = section2Ref.current?.offsetTop || 0;
+      const section3Top = section3Ref.current?.offsetTop || 0;
+
+      if (scrollPosition >= section3Top) {
+        setActiveSection(3);
+      } else if (scrollPosition >= section2Top) {
+        setActiveSection(2);
+      } else {
+        setActiveSection(1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Debounced autosave
   useEffect(() => {
@@ -410,9 +437,11 @@ export default function NewLenderLead() {
           section1Submitted={formState.section1Submitted}
           section2Submitted={formState.section2Submitted}
           section3Submitted={formState.section3Submitted}
+          activeSection={activeSection}
         />
 
         {/* Section 1 - Lender Lead Details */}
+        <div ref={section1Ref}>
         <LeadSectionCard section={1} title="Section 1" status={getSection1Status()}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Left Column */}
@@ -693,12 +722,14 @@ export default function NewLenderLead() {
               onClick={submitSection1}
               disabled={formState.section1Submitted}
             >
-              {formState.section1Submitted ? "SECTION 1 SUBMITTED" : "SUBMIT SECTION 1"}
+              {formState.section1Submitted ? "LEAD SUBMITTED" : "SUBMIT LEAD"}
             </button>
           </div>
         </LeadSectionCard>
+        </div>
 
         {/* Section 2 - Followups */}
+        <div ref={section2Ref}>
         <LeadSectionCard section={2} title="Section 2" status={getSection2Status()}>
           {formState.followups.length === 0 ? (
             <p className="text-muted-foreground text-sm py-4">
@@ -732,12 +763,14 @@ export default function NewLenderLead() {
               onClick={submitSection2}
               disabled={formState.section2Submitted}
             >
-              {formState.section2Submitted ? "SECTION 2 SUBMITTED" : "SUBMIT SECTION 2"}
+              {formState.section2Submitted ? "SAVED" : "SAVE"}
             </button>
           </div>
         </LeadSectionCard>
+        </div>
 
         {/* Section 3 - Closure */}
+        <div ref={section3Ref}>
         <LeadSectionCard section={3} title="Section 3" status={getSection3Status()}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -797,10 +830,11 @@ export default function NewLenderLead() {
               onClick={submitSection3}
               disabled={formState.section3Submitted}
             >
-              {formState.section3Submitted ? "FORM COMPLETED" : "SUBMIT SECTION 3"}
+              {formState.section3Submitted ? "SAVED" : "SAVE"}
             </button>
           </div>
         </LeadSectionCard>
+        </div>
       </div>
     </div>
   );
