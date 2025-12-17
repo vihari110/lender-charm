@@ -830,7 +830,7 @@ export default function NewLenderLead() {
               onClick={submitSection3}
               disabled={formState.section3Submitted}
             >
-              {formState.section3Submitted ? "SAVED" : "SAVE"}
+              {formState.section3Submitted ? "LEAD CLOSED" : "CLOSE LEAD"}
             </button>
           </div>
         </LeadSectionCard>
