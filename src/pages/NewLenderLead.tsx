@@ -574,7 +574,7 @@ export default function NewLenderLead() {
                 />
               </div>
               <div>
-                <label className="form-label">Date & Time of Visit*</label>
+                <label className="form-label">Date & Time*</label>
                 <input
                   type="datetime-local"
                   className="form-input"
