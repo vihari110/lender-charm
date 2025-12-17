@@ -8,19 +8,156 @@ import { useToast } from "@/hooks/use-toast";
 
 const STORAGE_KEY = "lenderLeadFormData";
 
-// Dropdown options
-const stateOptions = ["Maharashtra", "Gujarat", "Karnataka", "Delhi", "Tamil Nadu", "Telangana", "Rajasthan", "Uttar Pradesh", "West Bengal", "Other"];
-const cityOptions = ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Ahmedabad", "Chennai", "Kolkata", "Pune", "Jaipur", "Other"];
-const sourceOptions = ["Referral", "Website", "Social Media", "Cold Call", "Event", "Partner", "Other"];
-const lenderCategoryOptions = ["Individual", "HNI", "Corporate", "Family Office", "NRI", "Institutional", "Other"];
-const investmentPreferenceOptions = ["SME Term Loan", "Invoice Discounting", "Supply Chain", "Secured", "Unsecured", "Other"];
-const complianceOptions = ["KYC-ready", "Needs more info", "NDA required", "Other"];
-const ticketSizeOptions = ["<50k", "50k–250k", "250k–1M", "1M+"];
-const returnExpectationOptions = ["8–10%", "10–12%", "12–15%", "15%+"];
-const outcomeOptions = ["Positive", "Negative", "Neutral", "Follow-up Required"];
-const leadQualityOptions = ["Hot", "Warm", "Cold"];
-const visitModeOptions = ["In-person", "Video Call", "Phone Call", "Email"];
-const yesNoOptions = ["Yes", "No"];
+// Dropdown options with label/value pairs
+const stateOptions = [
+  { label: "Maharashtra", value: "maharashtra" },
+  { label: "Gujarat", value: "gujarat" },
+  { label: "Karnataka", value: "karnataka" },
+  { label: "Delhi", value: "delhi" },
+  { label: "Tamil Nadu", value: "tamil_nadu" },
+  { label: "Telangana", value: "telangana" },
+  { label: "Rajasthan", value: "rajasthan" },
+  { label: "Uttar Pradesh", value: "uttar_pradesh" },
+  { label: "West Bengal", value: "west_bengal" },
+  { label: "Other", value: "other" }
+];
+
+const cityOptions = [
+  { label: "Mumbai", value: "mumbai" },
+  { label: "Delhi", value: "delhi" },
+  { label: "Bangalore", value: "bangalore" },
+  { label: "Hyderabad", value: "hyderabad" },
+  { label: "Ahmedabad", value: "ahmedabad" },
+  { label: "Chennai", value: "chennai" },
+  { label: "Kolkata", value: "kolkata" },
+  { label: "Pune", value: "pune" },
+  { label: "Jaipur", value: "jaipur" },
+  { label: "Other", value: "other" }
+];
+
+const lenderTypeOptions = [
+  { label: "Individual", value: "individual" },
+  { label: "HNI", value: "hni" },
+  { label: "Corporate / Treasury", value: "corporate_treasury" },
+  { label: "Family Office", value: "family_office" },
+  { label: "Institutional", value: "institutional" },
+  { label: "NRI", value: "nri" },
+  { label: "Other (specify)", value: "other" }
+];
+
+const sourceOfLeadOptions = [
+  { label: "Referral", value: "referral" },
+  { label: "Walk-in", value: "walk_in" },
+  { label: "Inbound (Website/App)", value: "inbound" },
+  { label: "Outbound Calling", value: "outbound_call" },
+  { label: "Partner / Channel", value: "partner_channel" },
+  { label: "Event / Networking", value: "event" },
+  { label: "Digital Ads", value: "digital_ads" },
+  { label: "Social Media", value: "social_media" },
+  { label: "Existing Customer Upsell", value: "existing_customer" },
+  { label: "Other (specify)", value: "other" }
+];
+
+const riskAppetiteOptions = [
+  { label: "Conservative", value: "conservative" },
+  { label: "Moderate", value: "moderate" },
+  { label: "Aggressive", value: "aggressive" }
+];
+
+const investmentPreferenceOptions = [
+  { label: "SME Term Loans", value: "sme_term_loans" },
+  { label: "Invoice Discounting", value: "invoice_discounting" },
+  { label: "Supply Chain Finance", value: "supply_chain_finance" },
+  { label: "Secured Lending", value: "secured" },
+  { label: "Unsecured Lending", value: "unsecured" },
+  { label: "Diversified Basket / Auto-Allocate", value: "auto_allocate" },
+  { label: "Other (specify)", value: "other" }
+];
+
+const securityPreferenceOptions = [
+  { label: "Secured only", value: "secured_only" },
+  { label: "Unsecured OK", value: "unsecured_ok" },
+  { label: "Either", value: "either" }
+];
+
+const ticketSizeOptions = [
+  { label: "< 50,000", value: "lt_50k" },
+  { label: "50,000 – 2,50,000", value: "50k_250k" },
+  { label: "2,50,000 – 10,00,000", value: "250k_1m" },
+  { label: "10,00,000 – 50,00,000", value: "1m_5m" },
+  { label: "50,00,000+", value: "gt_5m" }
+];
+
+const tenurePreferenceOptions = [
+  { label: "1 – 3 months", value: "1_3m" },
+  { label: "3 – 6 months", value: "3_6m" },
+  { label: "6 – 12 months", value: "6_12m" },
+  { label: "12 months+", value: "gt_12m" }
+];
+
+const targetReturnOptions = [
+  { label: "8% – 10%", value: "8_10" },
+  { label: "10% – 12%", value: "10_12" },
+  { label: "12% – 15%", value: "12_15" },
+  { label: "15%+", value: "gt_15" }
+];
+
+const leadQualityOptions = [
+  { label: "Hot", value: "hot" },
+  { label: "Warm", value: "warm" },
+  { label: "Cold", value: "cold" }
+];
+
+const outcomeOfMeetingOptions = [
+  { label: "Interested (wants next step)", value: "interested" },
+  { label: "Needs More Information", value: "needs_more_info" },
+  { label: "KYC / Docs Pending", value: "kyc_pending" },
+  { label: "Call Scheduled", value: "call_scheduled" },
+  { label: "Proposal Shared", value: "proposal_shared" },
+  { label: "Not Interested", value: "not_interested" },
+  { label: "Revisit Later", value: "revisit_later" }
+];
+
+const followupVisitModeOptions = [
+  { label: "Call", value: "call" },
+  { label: "In-person Meeting", value: "in_person" },
+  { label: "Video Call", value: "video" },
+  { label: "WhatsApp", value: "whatsapp" },
+  { label: "Email", value: "email" },
+  { label: "Other (specify)", value: "other" }
+];
+
+const complianceConstraintsOptions = [
+  { label: "KYC-ready", value: "kyc_ready" },
+  { label: "Needs KYC Guidance", value: "needs_kyc_guidance" },
+  { label: "NDA Required", value: "nda_required" },
+  { label: "Investment Committee Approval Needed", value: "ic_approval_needed" },
+  { label: "Only Secured Products", value: "secured_only" },
+  { label: "Sector Restrictions (specify)", value: "sector_restrictions" },
+  { label: "Other (specify)", value: "other" }
+];
+
+const closureLenderOnboardedOptions = [
+  { label: "Yes", value: "yes" },
+  { label: "No", value: "no" }
+];
+
+const closureStageAchievedOptions = [
+  { label: "Registered", value: "registered" },
+  { label: "KYC Completed", value: "kyc_completed" },
+  { label: "Bank Account Added", value: "bank_added" },
+  { label: "Agreement Signed", value: "agreement_signed" },
+  { label: "First Pay-in Completed", value: "first_payin_completed" }
+];
+
+const dropReasonOptions = [
+  { label: "Return expectation mismatch", value: "return_mismatch" },
+  { label: "Risk appetite mismatch", value: "risk_mismatch" },
+  { label: "Compliance / KYC not feasible", value: "kyc_not_feasible" },
+  { label: "Not responsive", value: "not_responsive" },
+  { label: "Chose competitor", value: "competitor" },
+  { label: "Other (specify)", value: "other" }
+];
 
 interface Section1Data {
   lenderName: string;
@@ -32,6 +169,9 @@ interface Section1Data {
   lenderCategory: string;
   investmentPreference: string;
   compliance: string;
+  riskAppetite: string;
+  securityPreference: string;
+  tenurePreference: string;
   businessEmail: string;
   dateTimeOfVisit: string;
   city: string;
@@ -79,6 +219,9 @@ const initialSection1: Section1Data = {
   lenderCategory: "",
   investmentPreference: "",
   compliance: "",
+  riskAppetite: "",
+  securityPreference: "",
+  tenurePreference: "",
   businessEmail: "",
   dateTimeOfVisit: "",
   city: "",
@@ -213,7 +356,7 @@ export default function NewLenderLead() {
     if (!section3.lenderOnboarded || !section3.finalFollowupMode || !section3.completeDescription) {
       return false;
     }
-    if (section3.lenderOnboarded === "Yes" && !section3.dateOfOnboarding) {
+    if (section3.lenderOnboarded === "yes" && !section3.dateOfOnboarding) {
       return false;
     }
     return true;
@@ -319,7 +462,7 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select state</option>
-                  {stateOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {stateOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
               <div>
@@ -341,19 +484,19 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select source</option>
-                  {sourceOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {sourceOfLeadOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
               <div>
-                <label className="form-label">Lender Category*</label>
+                <label className="form-label">Lender Type*</label>
                 <select
                   className="form-select"
                   value={formState.section1.lenderCategory}
                   onChange={(e) => updateSection1("lenderCategory", e.target.value)}
                   disabled={formState.section1Submitted}
                 >
-                  <option value="">Select category</option>
-                  {lenderCategoryOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  <option value="">Select type</option>
+                  {lenderTypeOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
               <div>
@@ -365,7 +508,7 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select preference</option>
-                  {investmentPreferenceOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {investmentPreferenceOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
               <div>
@@ -377,7 +520,43 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select compliance status</option>
-                  {complianceOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {complianceConstraintsOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="form-label">Risk Appetite</label>
+                <select
+                  className="form-select"
+                  value={formState.section1.riskAppetite}
+                  onChange={(e) => updateSection1("riskAppetite", e.target.value)}
+                  disabled={formState.section1Submitted}
+                >
+                  <option value="">Select risk appetite</option>
+                  {riskAppetiteOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="form-label">Security Preference</label>
+                <select
+                  className="form-select"
+                  value={formState.section1.securityPreference}
+                  onChange={(e) => updateSection1("securityPreference", e.target.value)}
+                  disabled={formState.section1Submitted}
+                >
+                  <option value="">Select security preference</option>
+                  {securityPreferenceOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="form-label">Tenure Preference</label>
+                <select
+                  className="form-select"
+                  value={formState.section1.tenurePreference}
+                  onChange={(e) => updateSection1("tenurePreference", e.target.value)}
+                  disabled={formState.section1Submitted}
+                >
+                  <option value="">Select tenure</option>
+                  {tenurePreferenceOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
             </div>
@@ -413,7 +592,7 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select city</option>
-                  {cityOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {cityOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
               <div>
@@ -436,7 +615,7 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select ticket size</option>
-                  {ticketSizeOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {ticketSizeOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
               <div>
@@ -448,7 +627,7 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select return expectation</option>
-                  {returnExpectationOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {targetReturnOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
               <div>
@@ -471,7 +650,7 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select outcome</option>
-                  {outcomeOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {outcomeOfMeetingOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
               <div>
@@ -483,7 +662,7 @@ export default function NewLenderLead() {
                   disabled={formState.section1Submitted}
                 >
                   <option value="">Select quality</option>
-                  {leadQualityOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                  {leadQualityOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </div>
             </div>
@@ -538,7 +717,7 @@ export default function NewLenderLead() {
                 followup={followup}
                 index={index}
                 disabled={!formState.section1Submitted || formState.section2Submitted}
-                visitModeOptions={visitModeOptions}
+                visitModeOptions={followupVisitModeOptions}
                 onChange={updateFollowup}
                 onRemove={removeFollowup}
               />
@@ -580,7 +759,7 @@ export default function NewLenderLead() {
                 disabled={!formState.section1Submitted || !formState.section2Submitted || formState.section3Submitted}
               >
                 <option value="">Select</option>
-                {yesNoOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                {closureLenderOnboardedOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
             </div>
             <div>
@@ -592,12 +771,12 @@ export default function NewLenderLead() {
                 disabled={!formState.section1Submitted || !formState.section2Submitted || formState.section3Submitted}
               >
                 <option value="">Select mode</option>
-                {visitModeOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                {followupVisitModeOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
             </div>
             <div>
               <label className="form-label">
-                Date of onboarding{formState.section3.lenderOnboarded === "Yes" ? "*" : ""}
+                Date of onboarding{formState.section3.lenderOnboarded === "yes" ? "*" : ""}
               </label>
               <input
                 type="date"

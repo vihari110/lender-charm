@@ -9,11 +9,16 @@ interface Followup {
   description: string;
 }
 
+interface OptionType {
+  label: string;
+  value: string;
+}
+
 interface FollowupCardProps {
   followup: Followup;
   index: number;
   disabled: boolean;
-  visitModeOptions: string[];
+  visitModeOptions: OptionType[];
   onChange: (id: string, field: keyof Followup, value: any) => void;
   onRemove: (id: string) => void;
 }
@@ -54,8 +59,8 @@ export function FollowupCard({
           >
             <option value="">Select mode</option>
             {visitModeOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
+              <option key={option.value} value={option.value}>
+                {option.label}
               </option>
             ))}
           </select>
