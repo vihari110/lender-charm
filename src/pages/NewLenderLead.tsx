@@ -396,14 +396,8 @@ export default function NewLenderLead() {
   ].filter(Boolean).length;
 
   const getSection1Status = () => formState.section1Submitted ? "completed" : "in-progress";
-  const getSection2Status = () => {
-    if (formState.section2Submitted) return "completed";
-    return formState.section1Submitted ? "in-progress" : "not-started";
-  };
-  const getSection3Status = () => {
-    if (formState.section3Submitted) return "completed";
-    return formState.section1Submitted && formState.section2Submitted ? "in-progress" : "not-started";
-  };
+  const getSection2Status = () => formState.section2Submitted ? "completed" : "in-progress";
+  const getSection3Status = () => formState.section3Submitted ? "completed" : "in-progress";
 
   return (
     <div className="min-h-screen bg-background py-8 px-4">
@@ -716,7 +710,7 @@ export default function NewLenderLead() {
                 key={followup.id}
                 followup={followup}
                 index={index}
-                disabled={!formState.section1Submitted || formState.section2Submitted}
+                disabled={formState.section2Submitted}
                 visitModeOptions={followupVisitModeOptions}
                 onChange={updateFollowup}
                 onRemove={removeFollowup}
@@ -728,7 +722,7 @@ export default function NewLenderLead() {
             <button
               className="btn-outline flex items-center gap-2"
               onClick={addFollowup}
-              disabled={!formState.section1Submitted || formState.section2Submitted}
+              disabled={formState.section2Submitted}
             >
               <Plus className="w-4 h-4" />
               ADD FOLLOWUP
@@ -736,13 +730,9 @@ export default function NewLenderLead() {
             <button
               className="btn-primary"
               onClick={submitSection2}
-              disabled={!formState.section1Submitted || formState.section2Submitted}
+              disabled={formState.section2Submitted}
             >
-              {!formState.section1Submitted 
-                ? "COMPLETE SECTION 1 FIRST" 
-                : formState.section2Submitted 
-                ? "SECTION 2 SUBMITTED" 
-                : "SUBMIT SECTION 2"}
+              {formState.section2Submitted ? "SECTION 2 SUBMITTED" : "SUBMIT SECTION 2"}
             </button>
           </div>
         </LeadSectionCard>
@@ -756,7 +746,7 @@ export default function NewLenderLead() {
                 className="form-select"
                 value={formState.section3.lenderOnboarded}
                 onChange={(e) => updateSection3("lenderOnboarded", e.target.value)}
-                disabled={!formState.section1Submitted || !formState.section2Submitted || formState.section3Submitted}
+                disabled={formState.section3Submitted}
               >
                 <option value="">Select</option>
                 {closureLenderOnboardedOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -768,7 +758,7 @@ export default function NewLenderLead() {
                 className="form-select"
                 value={formState.section3.finalFollowupMode}
                 onChange={(e) => updateSection3("finalFollowupMode", e.target.value)}
-                disabled={!formState.section1Submitted || !formState.section2Submitted || formState.section3Submitted}
+                disabled={formState.section3Submitted}
               >
                 <option value="">Select mode</option>
                 {followupVisitModeOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -783,7 +773,7 @@ export default function NewLenderLead() {
                 className="form-input"
                 value={formState.section3.dateOfOnboarding}
                 onChange={(e) => updateSection3("dateOfOnboarding", e.target.value)}
-                disabled={!formState.section1Submitted || !formState.section2Submitted || formState.section3Submitted}
+                disabled={formState.section3Submitted}
               />
               <p className="text-xs text-muted-foreground mt-1">Only required if Lender Onboarded is Yes</p>
             </div>
@@ -796,7 +786,7 @@ export default function NewLenderLead() {
               rows={4}
               value={formState.section3.completeDescription}
               onChange={(e) => updateSection3("completeDescription", e.target.value)}
-              disabled={!formState.section1Submitted || !formState.section2Submitted || formState.section3Submitted}
+              disabled={formState.section3Submitted}
               placeholder="Enter complete description of the closure..."
             />
           </div>
@@ -805,13 +795,9 @@ export default function NewLenderLead() {
             <button
               className="btn-primary"
               onClick={submitSection3}
-              disabled={!formState.section1Submitted || !formState.section2Submitted || formState.section3Submitted}
+              disabled={formState.section3Submitted}
             >
-              {!formState.section1Submitted || !formState.section2Submitted
-                ? "COMPLETE SECTIONS 1 & 2 FIRST"
-                : formState.section3Submitted
-                ? "FORM COMPLETED"
-                : "SUBMIT SECTION 3"}
+              {formState.section3Submitted ? "FORM COMPLETED" : "SUBMIT SECTION 3"}
             </button>
           </div>
         </LeadSectionCard>
