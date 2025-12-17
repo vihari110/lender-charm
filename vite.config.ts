@@ -5,8 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // Add your repository name here:
-  base: '/lender-charm/', 
+  // Base path is set via GitHub Actions for production
+  base: './',
 
   server: {
     host: "::",
