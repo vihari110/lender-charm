@@ -6,51 +6,54 @@
 
 @layer base {
   :root {
-    --background: 220 14% 96%;
-    --foreground: 222 47% 11%;
+    /* FlexiP2P Theme - Clean white background with teal primary */
+    --background: 0 0% 100%;
+    --foreground: 220 20% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 220 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 220 20% 15%;
 
-    --primary: 217 91% 60%;
+    /* Teal/Turquoise primary color */
+    --primary: 174 62% 35%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 220 20% 15%;
 
-    --muted: 210 40% 96%;
+    --muted: 210 20% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 11%;
+    /* Orange accent */
+    --accent: 28 90% 55%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 91% 60%;
+    --border: 214 25% 90%;
+    --input: 214 25% 90%;
+    --ring: 174 62% 35%;
 
     --radius: 0.5rem;
 
     /* Lead page specific colors */
-    --lead-blue: 217 91% 60%;
-    --lead-pink: 340 82% 52%;
+    --lead-blue: 174 62% 35%;
+    --lead-pink: 340 75% 55%;
     --lead-green: 142 71% 45%;
-    --lead-orange: 25 95% 53%;
+    --lead-orange: 28 90% 55%;
     --lead-gray: 220 13% 91%;
 
     /* Section borders */
-    --section-1-border: 217 91% 60%;
-    --section-2-border: 340 82% 52%;
+    --section-1-border: 174 62% 35%;
+    --section-2-border: 340 75% 55%;
     --section-3-border: 142 71% 45%;
 
     /* Status chips */
-    --status-in-progress-bg: 25 95% 95%;
-    --status-in-progress-text: 25 95% 40%;
+    --status-in-progress-bg: 28 90% 95%;
+    --status-in-progress-text: 28 90% 40%;
     --status-not-started-bg: 220 14% 96%;
     --status-not-started-text: 220 13% 46%;
     --status-completed-bg: 142 71% 95%;
@@ -58,25 +61,25 @@
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5% 26%;
-    --sidebar-primary: 240 6% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-primary: 174 62% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 5% 96%;
     --sidebar-accent-foreground: 240 6% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-ring: 174 62% 35%;
   }
 
   .dark {
-    --background: 222 84% 5%;
+    --background: 220 20% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 222 84% 5%;
+    --card: 220 20% 10%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 84% 5%;
+    --popover: 220 20% 10%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217 91% 60%;
+    --primary: 174 55% 45%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 217 33% 18%;
@@ -85,24 +88,24 @@
     --muted: 217 33% 18%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 217 33% 18%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 28 85% 50%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217 33% 18%;
     --input: 217 33% 18%;
-    --ring: 213 27% 84%;
+    --ring: 174 55% 45%;
 
-    --sidebar-background: 240 6% 10%;
+    --sidebar-background: 220 20% 8%;
     --sidebar-foreground: 240 5% 96%;
-    --sidebar-primary: 224 76% 48%;
+    --sidebar-primary: 174 55% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4% 16%;
     --sidebar-accent-foreground: 240 5% 96%;
     --sidebar-border: 240 4% 16%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-ring: 174 55% 45%;
   }
 }
 
@@ -162,7 +165,7 @@
   }
 
   .form-input {
-    @apply w-full px-3 py-2.5 border border-input rounded-md text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all;
+    @apply w-full px-3 py-2.5 border border-input rounded-md text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all;
   }
 
   .form-input:disabled {
@@ -170,15 +173,19 @@
   }
 
   .form-select {
-    @apply w-full px-3 py-2.5 border border-input rounded-md text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent appearance-none cursor-pointer;
+    @apply w-full px-3 py-2.5 border border-input rounded-md text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent appearance-none cursor-pointer;
   }
 
   .form-textarea {
-    @apply w-full px-3 py-2.5 border border-input rounded-md text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none;
+    @apply w-full px-3 py-2.5 border border-input rounded-md text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none;
   }
 
   .btn-primary {
-    @apply px-6 py-2.5 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply px-6 py-2.5 bg-primary text-primary-foreground font-medium rounded-md hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-accent {
+    @apply px-6 py-2.5 bg-accent text-accent-foreground font-medium rounded-md hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
@@ -186,7 +193,7 @@
   }
 
   .btn-outline {
-    @apply px-6 py-2.5 border border-input bg-background text-foreground font-medium rounded-md hover:bg-accent transition-colors;
+    @apply px-6 py-2.5 border border-primary bg-background text-primary font-medium rounded-md hover:bg-primary/5 transition-colors;
   }
 
   .btn-danger {

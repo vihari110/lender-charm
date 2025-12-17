@@ -48,7 +48,7 @@ export function LeadStepper({
                     status === "completed"
                       ? "bg-lead-green text-primary-foreground"
                       : status === "in-progress"
-                      ? "bg-lead-orange text-primary-foreground"
+                      ? "bg-accent text-accent-foreground"
                       : "bg-lead-gray text-muted-foreground"
                   }`}
                 >
